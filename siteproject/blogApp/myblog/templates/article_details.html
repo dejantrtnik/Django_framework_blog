@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+      Webroject - {{ post.title_tag }}
+{% endblock %}
+
+{% block content %}
+current user: {{ user.is_superuser }}
+      <h1>{{ post.title }}</h1>
+      Category: {{ post.category }} <br>
+      <small>By: {{ post.author.first_name }}</small> - {{ post.post_date }} <br><hr>
+      
+      {{ post.body | safe }} <br>
+      {% if post.headers_image %}
+            <a href="{{ post.headers_image.url }}"><img src="{{ post.headers_image.url }}" alt=""></a>
+      {% endif %}
+      
+      
+      <hr>
+            <a  class="btn btn-outline-secondary" href="{% url 'home' %}">Back</a>
+            <br>
+      {% if user.is_authenticated  %}
+            <form action="{% url 'like_post' post.pk %}" method="post">
+                  {% csrf_token %}
+                        {% if liked %}
+                              <button type="submit" name="post_id" value="{{ post.id}}" class="btn btn-danger">
+                                    Unlike
+                              </button>
+                        {% else %}
+                              <button type="submit" name="post_id" value="{{ post.id}}" class="btn btn-primary">
+                                    Like
+                              </button> 
+                              <br>
+                             
+                        {% endif %}
+                        
+            </form>
+
+            
+            
+      
+      
+            {% if user.id == post.author.id %}
+                  <a href="{% url 'update_post' post.pk %}">Edit post</a>
+                  <a href="{% url 'delete_post' post.pk %}"><button class="btn btn-danger">Delete post !</button></a>
+          
+            {% endif %}
+            - {{ total_likes }} - likes
+      {% else %}      
+            <small>Must be logged in to see likes</small>
+            <a href="{% url 'login' %}">Login</a>
+      {% endif %}
+
+
+
+      <!-- BIO -->
+      
+      
+      {% if post.author.profile.profile_pic %}
+            <a href="{% url 'show_profile_page' post.author.profile.id %}">profile info</a>
+            <img class="profile_pic" src="{{ post.author.profile.profile_pic.url }}" alt=""> <br>
+      {% else %}
+            
+            <img class="profile_pic" src="{% static 'myblog/images/profile_img.jpg' %}" alt=""> <br>
+            
+      {% endif %}
+
+      {% if post.author.profile.web_url %}
+            {{ post.author.profile.web_url }} 
+      {% endif %}
+      {% if post.author.profile.pinterest_url %}
+            {{ post.author.profile.pinterest_url }} 
+      {% endif %}
+      {% if post.author.profile.facebook_url %}
+            {{ post.author.profile.facebook_url }}
+      {% endif %}
+      {% if post.author.profile.twitter_url %}
+            {{ post.author.profile.twitter_url }} 
+      {% endif %}
+      {% if post.author.profile.instagram_url %}
+            {{ post.author.profile.instagram_url }}
+      {% endif %}
+      {% if post.author.profile.youtube_url %}
+            {{ post.author.profile.youtube_url }}
+      {% endif %}
+      {% if post.author.profile.twitch_url %}
+            {{ post.author.profile.twitch_url }}
+      {% endif %}
+      
+{% endblock %}
+

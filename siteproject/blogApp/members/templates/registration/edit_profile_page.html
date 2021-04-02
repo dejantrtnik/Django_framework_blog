@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+     Edit profile - {{ page_user.user.first_name  }}
+{% endblock %}
+
+{% block content %}
+
+<h1>Edit profile</h1>
+{% if user.is_authenticated %}
+      <div class="container-fluid">
+            <div class="form-group">
+                  <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                              <label class="form-label">Bio</label>
+                              <textarea cols="40" rows="10" type="text" name="bio" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Picture</label>
+                              <input type="file" name="profile_pic" class="form-control" >
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Web url</label>
+                              <input type="text" name="web_url" class="form-control" >
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Facebook url</label>
+                              <input type="text" name="facebook_url" class="form-control" >
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Twitter url</label>
+                              <input type="text" name="twitter_url" class="form-control" >
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Instagram url</label>
+                              <input type="text" name="instagram_url" class="form-control" >
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Pinterest url</label>
+                              <input type="text" name="pinterest_url" class="form-control" >
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Youtube url</label>
+                              <input type="text" name="youtube_url" class="form-control" >
+                        </div>
+                        <div class="mb-3">
+                              <label class="form-label">Twitch url</label>
+                              <input type="text" name="twitch_url" class="form-control" >
+                        </div>
+                        <button class="btn btn-primary">Add post</button>
+                  </form> 
+            </div>
+      </div>
+
+{% endif %}
+
+{% endblock %}

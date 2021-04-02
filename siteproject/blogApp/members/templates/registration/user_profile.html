@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+     User profile - {{ page_user.user.first_name  }}
+{% endblock %}
+
+{% block content %}
+
+<h1>User profile</h1>
+
+{% if page_user.profile_pic %}
+
+<img class="profile_pic" src="{{ page_user.profile_pic.url }}" alt=""> <br>
+{% else %}
+
+<img class="profile_pic" src="{% static 'myblog/images/profile_img.jpg' %}" alt=""> <br>
+
+{% endif %}
+
+{% if page_user.web_url %}
+{{ page_user.web_url }} 
+{% endif %}
+{% if page_user.pinterest_url %}
+{{ page_user.pinterest_url }} 
+{% endif %}
+{% if page_user.facebook_url %}
+{{ page_user.facebook_url }}
+{% endif %}
+{% if page_user.twitter_url %}
+{{ page_user.twitter_url }} 
+{% endif %}
+{% if page_user.instagram_url %}
+{{ page_user.instagram_url }}
+{% endif %}
+{% if page_user.youtube_url %}
+{{ page_user.youtube_url }}
+{% endif %}
+{% if page_user.twitch_url %}
+{{ page_user.twitch_url }}
+{% endif %}
+
+{% endblock %}

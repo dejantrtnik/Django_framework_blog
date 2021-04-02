@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+      Webroject
+{% endblock %}
+
+{% block content %}
+<h1>Post</h1>
+
+<div class="container-fluid">
+      <div class="row">
+            <div class="left-column col-lg-7 offset-lg-1">
+                  <div class="blog-post-container">
+                        {% for post in object_list %}
+                              <h3><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a> <br></h3>
+                              
+                              {% if post.headers_image %}
+                                    <img class="post_pic" src="{{ post.headers_image.url }}" alt="">  <br> 
+                              {% endif %}
+                              <a href="{% url 'article-detail' post.pk %}">{{ post.snippet }}</a>
+                              
+
+                              <a href="{% url 'category' post.category|slugify %}">Category: {{ post.category }}</a><br>
+                              Create: {{ post.author.first_name }} {{ post.author.last_name }} 
+                              
+                              {% if user.is_authenticated %}
+                                    {% if user.id == post.author.id %}
+                                          <a href="{% url 'update_post' post.pk %}">Edit post</a> - <a href="{% url 'delete_post' post.pk %}">Delete post</a><br>
+                                    {% endif %}
+                              {% endif %}
+
+                        {% endfor %}
+                  </div>
+            </div>
+                  <!-- Right 'create post' column  -->
+                  <div class="right-column col-lg-3 d-lg-flex d-none flex-column">
+                        <!-- search blog -->
+                        <form method="get">
+                              <input autocomplete="off" class="form-control"  type="text" name="q" id="id_q" placeholder="Search posts...">
+                        </form>
+                        <!-- end search blog -->
+                        
+                        <div class="card create-post-bar d-flex flex-column p-3">
+                              <img class="img-fluid d-block m-auto pb-2" src="" width="72" height="72">
+                              <p class="lead">In this course you'll learn how to build a simple blog with user registration and blog CRUD functionality. Django is a powerful 
+                                    framework and you'll see why in this course.</p>
+                              <p class="m-auto"><a class="btn btn-primary" href="{% url 'add_post' %}">Create post</a></p>
+                        </div>
+                  </div>
+                  <!-- end Right 'create post' column  -->
+            </div>
+      </div> 
+</div>
+{% endblock %}
+
+
